@@ -53,7 +53,7 @@ class Sniffer:
         self.ip_dst_count = {}
 
         if self.gen_log:
-            log_file_path = "/app/sniffer.log"
+            log_file_path = "./sniffer.log"
 
             # Remove the log file if it already exists
             if os.path.exists(log_file_path):
