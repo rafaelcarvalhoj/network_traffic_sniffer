@@ -151,7 +151,7 @@ class Sniffer:
         Starts the packet capture and processes the captured packets.
         """
         data_displayed = False
-        def handle_signal():
+        def handle_signal(signum, frame):
             """
             Signal handler to call print_data() on termination signals.
             """
