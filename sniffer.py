@@ -8,6 +8,7 @@ import signal
 import logging
 import sys
 import os
+import pandas as pd
 from scapy.all import sniff
 from scapy.layers.inet import IP
 
@@ -52,18 +53,24 @@ class Sniffer:
         self.ip_src_count = {}
         self.ip_dst_count = {}
 
-        if self.gen_log:
-            log_file_path = "./sniffer.log"
+        log_file_path = "./sniffer.log"
+        self.csv_file_path = "./sniffer.csv"
 
-            # Remove the log file if it already exists
+        if self.gen_log:
             if os.path.exists(log_file_path):
                 os.remove(log_file_path)
+
+            if os.path.exists(self.csv_file_path):
+                os.remove(self.csv_file_path)
 
             logging.basicConfig(
                 filename=log_file_path,
                 level=logging.INFO,
                 format="%(asctime)s - %(message)s",
             )
+
+            self.csv_log = pd.DataFrame(columns=["timestamp", "from", "destiny", "protocol", "length"])
+            self.csv_log.to_csv(self.csv_file_path, index=False)
 
     def __callback(self, packet):
         """
@@ -100,6 +107,15 @@ class Sniffer:
 
             if self.gen_log:
                 logging.info(output)
+                new_row = pd.DataFrame([{
+                    "timestamp": pd.Timestamp.now(),
+                    "from": ip_src,
+                    "destiny": ip_dst,
+                    "protocol": protocols[int(protocol)] if int(protocol) < len(protocols) else protocol,
+                    "length": packet_len,
+                }])
+                self.csv_log = pd.concat([self.csv_log, new_row], ignore_index=True)
+                self.csv_log.to_csv(self.csv_file_path, index=False)
 
             if ip_src in self.ip_src_count:
                 self.ip_src_count[ip_src] += 1
