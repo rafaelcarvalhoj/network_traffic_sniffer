@@ -115,19 +115,28 @@ docker rm 123abc456def
 Removing the container will free up system resources and prevent the container from being listed in future `docker ps -a` commands (which lists all containers, including stopped ones).
 ## Local Interactive Mode
 
+Install the requiriments and create virtual enviroment:
+
+```bash
+sudo apt install python3-venv && \
+    python3 -m venv .venv && \
+    source .venv/bin/activate && \
+    pip install -r requiriments.txt
+```
+
 To run the sniffer locally with logging enabled on the `eth0` interface:
 
 ```bash
-sudo python3 script.py eth0 -gl
+sudo .venv/bin/python3 script.py eth0 -gl
 ```
 
 To list all available network interfaces:
 
 ```bash
-sudo python3 script.py -si
+sudo .venv/bin/python3 script.py -si
 ```
 
-# Logging in the File `sniffer.log`
+# Logging in the File `sniffer.log` and `sniffer.csv`
 The network traffic sniffer script includes a logging mechanism to capture and store information about sniffed network packets. This feature is especially useful for monitoring and analyzing network traffic over time. Here is an overview of how logging is implemented and how to use it effectively.
 ## Logging Configuration
 
@@ -136,3 +145,20 @@ The logging feature is controlled by the `--gen-log` argument when running the s
 ### Enabling Logging
 
 To enable logging, use the `--gen-log` or `-gl` flag when executing the script:
+
+# Data Analysis and Graph Generation
+To generate data graphs from the logs, follow these steps:
+
+1. Navigate to the Data Analysis Directory:
+
+```bash
+cd data_analysis_generator
+```
+
+2. Ensure the Python Environment is Activated and execute the script:
+
+```bash
+python3 gen_graphs.py
+```
+
+This script will process the log data and produce various graphs saved as image files in the same directory.
