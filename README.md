@@ -19,10 +19,10 @@ docker run <iterative_or_not> --net=host --privileged -v .:/app sniffer <args>
 - If you want to run this script in detached mode, use `-d`.
 
 ## `<args>`
-**-h, --help** :Show this help message and exit
-**<interface>**: Network interface you want to sniff 
-**-si, --show-interfaces**: List all available network interfaces instead of capturing packets.
-**-gl, --gen-log**: Enable log generation for script output.
+- **-h, --help** :Show this help message and exit
+- **interface**: Network interface you want to sniff 
+- **-si, --show-interfaces**: List all available network interfaces instead of capturing packets.
+- **-gl, --gen-log**: Enable log generation for script output.
 
 ## Local version
 The local version is only available to run in interactive mode. You need to press `Ctrl+C` to stop the sniffer.
