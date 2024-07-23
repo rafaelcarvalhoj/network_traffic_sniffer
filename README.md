@@ -1,4 +1,5 @@
 
+
 # Network Traffic Sniffer Script
 This script captures network packets on a specified interface and provides traffic statistics.
 You can also list available network interfaces without capturing packets.
@@ -27,10 +28,21 @@ docker run <iterative_or_not> --net=host --privileged -v .:/app sniffer <args>
 ## Local version
 The local version is only available to run in interactive mode. You need to press `Ctrl+C` to stop the sniffer.
 
-Usage:
+### Usage:
+Install the requiriments and create virtual enviroment:
+
 ```bash
-sudo python3 script.py <args>
+sudo apt install python3-venv && \
+    python3 -m venv .venv && \
+    source .venv/bin/activate && \
+    pip install -r requiriments.txt
 ```
+
+Sniffer usage:
+```bash
+sudo .venv/bin/python3 script.py <args>
+```
+
 As with the Docker version, you need to pass the arguments to execute the script.
 
 # Exemple Usage
@@ -163,11 +175,3 @@ python3 gen_graphs.py
 
 This script will process the log data and produce various graphs saved as image files in the same directory.
 
-## Graphs exemple
-![traffic_volume_over_time](https://github.com/user-attachments/assets/455bfaf0-4be2-410a-9697-625ac598cdcc)
-![traffic_matrix](https://github.com/user-attachments/assets/5f32ff31-6935-431c-9001-c8dbca55aa30)
-![top_src_ips](https://github.com/user-attachments/assets/f2e999d9-966f-46d9-9b08-0a9c7a007884)
-![top_dst_ips](https://github.com/user-attachments/assets/13c1ed9b-29e1-43e5-8bef-4dec7700b5c5)
-![protocol_distribution](https://github.com/user-attachments/assets/f93fa07b-389a-4d68-8e5d-cf8f8f182cc9)
-![protocol_counts](https://github.com/user-attachments/assets/7a58de54-be91-4992-a532-3fe84f610e8b)
-![packet_length_distribution](https://github.com/user-attachments/assets/66664012-9ea3-40fc-9154-1d7e5fa8382d)
